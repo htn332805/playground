@@ -27,10 +27,10 @@
         system = "aarch64-linux";
         # Import our old system configuration.nix
         modules = [
-          ./configuration.nix
-          nixos-hardware.nixosModules.raspberry-pi-4
           disko.nixosModules.disko
           ./disko_partition.nix
+          #./configuration.nix
+          #nixos-hardware.nixosModules.raspberry-pi-4
         ];
       };
     };
