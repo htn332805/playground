@@ -22,12 +22,15 @@
   outputs = { self, nixpkgs, nixos-hardware }: {
     # nixosConfigurations is the key that nixos-rebuild looks for.
     nixosConfigurations = {
+      #FIXME by change xxxmyhostxxx = nixpkgs.lib.nixosSystem 
       myhost = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         # Import our old system configuration.nix
         modules = [
           ./configuration.nix
           nixos-hardware.nixosModules.raspberry-pi-4
+          disko.nixosModules.disko
+          ./disko_partition.nix
         ];
       };
     };
