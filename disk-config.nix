@@ -60,4 +60,5 @@
       }; #end of datasets
     }; #end of rpool
   }; #end of zpool
-} #end of disko nix
+}; #end of disko nix
+}
