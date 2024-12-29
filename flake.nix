@@ -83,7 +83,7 @@
             ++ modules;
         };
     in {
-      formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+      formatter."${system}" = nixpkgs.legacyPackages."${system}".alejandra;
       #formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       nixosConfigurations.wsl = mkNixosConfiguration {
         hostname = "wsl";
