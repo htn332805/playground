@@ -19,7 +19,7 @@
 
   # Outputs can be anything, but the wiki + some commands define their own
   # specific keys. Wiki page: https://nixos.wiki/wiki/Flakes#Output_schema
-  outputs = { self, nixpkgs, nixos-hardware }: {
+  outputs = { self, nixpkgs, nixos-hardware, disko }: {
     # nixosConfigurations is the key that nixos-rebuild looks for.
     nixosConfigurations = {
       #FIXME by change xxxmyhostxxx = nixpkgs.lib.nixosSystem 
