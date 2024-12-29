@@ -99,6 +99,7 @@
         username = "nixos"; # FIXME: replace with your own username!
         modules = [
           disko.nixosModules.disko
+          ./linux.nix
           ./pi4.nix
         ];
       };
