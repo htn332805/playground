@@ -20,6 +20,7 @@
 
   users.users.${username} = {
     isNormalUser = true;
+    initialPassword = "hai";
     # FIXME: change your shell here if you don't want zsh
     shell = pkgs.zsh;
     extraGroups = [
@@ -43,7 +44,7 @@
     ];
   };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "24.05";
 
   virtualisation.docker = {
     enable = true;
@@ -81,7 +82,7 @@
 
     gc = {
       automatic = true;
-      options = "--delete-older-than 7d";
+      options = "--delete-older-than 30d";
     };
   };
 }
