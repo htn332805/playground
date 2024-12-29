@@ -1,93 +1,28 @@
-{
-  # FIXME: uncomment the next line if you want to reference your GitHub/GitLab access tokens and other secrets
-  # secrets,
-  username,
-  hostname,
-  pkgs,
-  inputs,
-  ...
-}: {
-  # FIXME: change to your tz! look it up with "timedatectl list-timezones"
-  time.timeZone = "America/Los_Angeles";
+{modulesPath, ...}: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./disk-config.nix
+  ];
 
-  networking.hostName = "${hostname}";
-
-  # FIXME: change your shell here if you don't want fish
-  programs.fish.enable = true;
-  environment.pathsToLink = ["/share/fish"];
-  environment.shells = [pkgs.fish];
-
-  environment.enableAllTerminfo = true;
-
-  security.sudo.wheelNeedsPassword = false;
-
-  # FIXME: uncomment the next line to enable SSH
-  services.openssh.enable = true;
-
-  users.users.${username} = {
-    isNormalUser = true;
-    initialPassword = "hai";
-    # FIXME: change your shell here if you don't want fish
-    shell = pkgs.fish;
-    extraGroups = [
-      "wheel" "networkmanger"
-      # FIXME: uncomment the next line if you want to run docker without sudo
-      # "docker"
-    ];
-    # FIXME: add your own hashed password
-    # hashedPassword = "";
-    # FIXME: add your own ssh public key
-    # openssh.authorizedKeys.keys = [
-    #   "ssh-rsa ..."
-    # ];
+  boot.loader.grub = {
+    # no need to set devices, disko will add all devices that have a EF02 partition to the list already
+    # devices = [ ];
+    efiSupport = true;
+    efiInstallAsRemovable = true;
   };
 
-  home-manager.users.${username} = {
-    imports = [
-      ./home.nix
-    ];
-  };
-
-  system.stateVersion = "24.05";
-
-  virtualisation.docker = {
+  services.openssh = {
     enable = true;
-    enableOnBoot = true;
-    autoPrune.enable = true;
+    settings.PasswordAuthentication = true;
+    extraConfig = ''
+      PrintLastLog no
+    '';
   };
 
-  
-  nix = {
-    settings = {
-      trusted-users = [username];
-      # FIXME: use your access tokens from secrets.json here to be able to clone private repos on GitHub and GitLab
-      # access-tokens = [
-      #   "github.com=${secrets.github_token}"
-      #   "gitlab.com=OAuth2:${secrets.gitlab_token}"
-      # ];
-
-      accept-flake-config = true;
-      auto-optimise-store = true;
-    };
-
-    registry = {
-      nixpkgs = {
-        flake = inputs.nixpkgs;
-      };
-    };
-
-    nixPath = [
-      "nixpkgs=${inputs.nixpkgs.outPath}"
-      "nixos-config=/etc/nixos/configuration.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
-
-    package = pkgs.nixVersions.stable;
-    extraOptions = ''experimental-features = nix-command flakes'';
-
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 30d";
-    };
-  };
+  users.users.root.openssh.authorizedKeys.keys = [
+    # FIXME: MAKE SURE YOU UPDATE THE ID_RSA.PUB FILE
+    # Generally you should be able to do "cp ~/.ssh/id_rsa.pub ."
+    (builtins.readFile ./id_rsa.pub)
+  ];
 }
