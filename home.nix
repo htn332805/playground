@@ -141,8 +141,8 @@ in {
         side-by-side = true;
         navigate = true;
       };
-      userEmail = ""; # FIXME: set your git email
-      userName = ""; #FIXME: set your git username
+      userEmail = "htn332805@hotmail.com"; # FIXME: set your git email
+      userName = "htn332805"; #FIXME: set your git username
       extraConfig = {
         # FIXME: uncomment the next lines if you want to be able to clone private https repos
         # url = {
@@ -226,9 +226,9 @@ in {
       shellAliases = {
         jvim = "nvim";
         lvim = "nvim";
-        pbcopy = "/mnt/c/Windows/System32/clip.exe";
-        pbpaste = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard'";
-        explorer = "/mnt/c/Windows/explorer.exe";
+        #pbcopy = "/mnt/c/Windows/System32/clip.exe";
+        #pbpaste = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard'";
+        #explorer = "/mnt/c/Windows/explorer.exe";
         
         # To use code as the command, uncomment the line below. Be sure to replace [my-user] with your username. 
         # If your code binary is located elsewhere, adjust the path as needed.
