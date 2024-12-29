@@ -83,8 +83,8 @@
             ++ modules;
         };
     in {
-      formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
-      #formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      #formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       nixosConfigurations.wsl = mkNixosConfiguration {
         hostname = "wsl";
         username = "nixos"; # FIXME: replace with your own username!
