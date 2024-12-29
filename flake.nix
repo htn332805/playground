@@ -32,7 +32,7 @@
           ];
         };
         overlays = [
-          nur.overlays.default
+          nur.overlay
           jeezyvim.overlays.default
           (_final: prev: {
             # this allows us to reference pkgs.unstable
