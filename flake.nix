@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration";
+  description = "Hai NixOS configuration on https://github.com/htn332805/playground.git";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
   inputs.nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -79,8 +79,8 @@
             ++ modules;
         };
     in {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
+      formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
+      #formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       nixosConfigurations.wsl = mkNixosConfiguration {
         hostname = "wsl";
         username = "nixos"; # FIXME: replace with your own username!
