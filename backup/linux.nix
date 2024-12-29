@@ -1,6 +1,6 @@
 {
   # FIXME: uncomment the next line if you want to reference your GitHub/GitLab access tokens and other secrets
-  secrets,
+  # secrets,
   username,
   hostname,
   pkgs,
@@ -43,7 +43,7 @@
     ];
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "22.05";
 
   virtualisation.docker = {
     enable = true;
@@ -81,7 +81,7 @@
 
     gc = {
       automatic = true;
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
     };
   };
 }
