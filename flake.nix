@@ -10,10 +10,12 @@
     };
 
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
+      url = "github:NixOS/nixos-hardware"; # this channel have the setting for the RPI hardwares
     };
-
-  };
+    disko.url = "github:nix-community/disko";
+  
+  
+  }; # end of inputs definition
 
   # Outputs can be anything, but the wiki + some commands define their own
   # specific keys. Wiki page: https://nixos.wiki/wiki/Flakes#Output_schema
