@@ -1,10 +1,10 @@
 {
-  description = "NixOS configuration";
+  description = "Hai NixOS configuration on https://github.com/htn332805/playground.git";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
   inputs.nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  inputs.home-manager.url = "github:nix-community/home-manager/release-23.11";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-24.05";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.nur.url = "github:nix-community/NUR";
@@ -17,6 +17,8 @@
 
   inputs.disko.url = "github:nix-community/disko";
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+
+  inputs.jeezyvim.url = "github:LGUG2Z/JeezyVim";
 
   outputs = inputs:
     with inputs; let
@@ -31,6 +33,7 @@
         };
         overlays = [
           nur.overlay
+          jeezyvim.overlays.default
           (_final: prev: {
             # this allows us to reference pkgs.unstable
             unstable = import nixpkgs-unstable {
