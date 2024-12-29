@@ -81,7 +81,7 @@
     in {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-      nixosConfigurations.nixos = mkNixosConfiguration {
+      nixosConfigurations.wsl = mkNixosConfiguration {
         hostname = "wsl";
         username = "nixos"; # FIXME: replace with your own username!
         modules = [
@@ -90,8 +90,8 @@
         ];
       }; #end of wsl configuration
 
-      nixosConfigurations.nixos = mkNixosConfiguration {
-        hostname = "PI4s";
+      nixosConfigurations.pi4 = mkNixosConfiguration {
+        hostname = "pi4";
         username = "nixos"; # FIXME: replace with your own username!
         modules = [
           nixpkgs.nixosModules.pi4
