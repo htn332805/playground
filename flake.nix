@@ -17,6 +17,9 @@
 
   inputs.jeezyvim.url = "github:LGUG2Z/JeezyVim";
 
+  inputs.disko.url = "github:nix-community/disko";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs = inputs:
     with inputs; let
       secrets = builtins.fromJSON (builtins.readFile "${self}/secrets.json");
@@ -45,6 +48,7 @@
       });
 
       configurationDefaults = args: {
+        nixpkgs = nixpkgsWithOverlays;
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "hm-backup";
@@ -79,7 +83,7 @@
             ++ modules;
         };
     in {
-      formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
       #formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       nixosConfigurations.wsl = mkNixosConfiguration {
         hostname = "wsl";
@@ -94,7 +98,7 @@
         hostname = "pi4";
         username = "nixos"; # FIXME: replace with your own username!
         modules = [
-          #nixpkgs.nixosModules.pi4
+          disko.nixosModules.disko
           ./pi4.nix
         ];
       };
