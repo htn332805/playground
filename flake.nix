@@ -94,7 +94,7 @@
         hostname = "pi4";
         username = "nixos"; # FIXME: replace with your own username!
         modules = [
-          nixpkgs.nixosModules.pi4
+          #nixpkgs.nixosModules.pi4
           ./pi4.nix
         ];
       };
