@@ -158,22 +158,23 @@ in {
 
       accept-flake-config = true;
       auto-optimise-store = true;
-    };
+    }; #end of settings
 
     registry = {
       nixpkgs = {
         flake = inputs.nixpkgs;
       };
-    };
+    }; #end of registry
 
     nixPath = [
       "nixpkgs=${inputs.nixpkgs.outPath}"
       "nixos-config=/etc/nixos/configuration.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
-    ];
+    ]; #end of nixpath
 
     package = pkgs.nixVersions.stable;
+  }; # end of nix block
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  #nixpkgs.config.allowUnfree = true;
+  
   system.stateVersion = "24.11";
 }
