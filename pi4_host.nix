@@ -48,7 +48,7 @@ in {
       LC_ADDRESS = defaultLocale;
       LC_IDENTIFICATION = defaultLocale;
       LC_MEASUREMENT = defaultLocale;
-LC_MONETARY = defaultLocale;
+      LC_MONETARY = defaultLocale;
       LC_NAME = defaultLocale;
       LC_NUMERIC = defaultLocale;
       LC_PAPER = defaultLocale;
