@@ -1,3 +1,4 @@
+#git clone https://github.com/htn332805/playground.git && cd playground && nixos-rebuild -v --flake .#pi4test switch
 { config, pkgs, lib, ... }:
 
 let
