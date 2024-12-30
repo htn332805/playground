@@ -22,7 +22,6 @@
     killall
     mosh
     procs
-    ripgrep
     sd
     tmux
     vim
