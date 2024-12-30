@@ -295,6 +295,5 @@ in {
         }
       ]; #end of plugins list
     };
-  };
 };
 }
