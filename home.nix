@@ -25,8 +25,6 @@
     ripgrep
     sd
     tmux
-    tree
-    unzip
     vim
     wget
     zip
