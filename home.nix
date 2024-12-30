@@ -38,52 +38,7 @@
 
     # FIXME: you can add plugins, change keymaps etc using (jeezyvim.nixvimExtend {})
     # https://github.com/LGUG2Z/JeezyVim#extending
-    #jeezyvim
-    (jeezyvim.nixvimExtend {
-      # you can put anything under the "Options" section of the NixVim docs here
-      # https://nix-community.github.io/nixvim/
-
-      # some examples...
-
-      # all your regular vim options here
-      options = {
-        textwidth = 120;
-      };
-
-      config = {
-      # add your own personal keymaps preferences
-        keymaps = [
-          {
-            mode = "n";
-            action = ":vsplit<CR>";
-            key = "|";
-          }
-
-          {
-            mode = "n";
-            action = ":split<CR>";
-            key = "-";
-          }
-        ];
-
-
-        plugins = {
-          lsp.servers = {
-            # full list of language servers you can enable on the left bar here:
-            # https://nix-community.github.io/nixvim/plugins/lsp/servers/ansiblels/index.html
-
-            graphql.enable = true;
-          };
-
-          # full list of plugins on the left bar here:
-          # https://nix-community.github.io/nixvim/plugins/airline/index.html
-
-          markdown-preview.enable = true;
-        };
-      };
-    }) #end of jeezyvim
-
-
+    jeezyvim
 
     # key tools
     gh # for bootstrapping
@@ -119,9 +74,9 @@
 in {
   imports = [
     nix-index-database.hmModules.nix-index
-  ]; #end of import list
+  ];
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "22.11";
 
   home = {
     username = "${username}";
@@ -162,7 +117,7 @@ in {
       ruby.disabled = true;
       hostname.ssh_only = false;
       hostname.style = "bold green";
-    }; # end of starship setting
+    };
 
     # FIXME: disable whatever you don't want
     fzf.enable = true;
@@ -185,9 +140,9 @@ in {
         line-numbers = true;
         side-by-side = true;
         navigate = true;
-      }; #end of delta
-      userEmail = "htn332805@hotmail.com"; # FIXME: set your git email
-      userName = "htn332805"; #FIXME: set your git username
+      };
+      userEmail = ""; # FIXME: set your git email
+      userName = ""; #FIXME: set your git username
       extraConfig = {
         # FIXME: uncomment the next lines if you want to be able to clone private https repos
         # url = {
@@ -197,8 +152,7 @@ in {
         #   "https://oauth2:${secrets.gitlab_token}@gitlab.com" = {
         #     insteadOf = "https://gitlab.com";
         #   };
-        #};
-         }; #end of extraConfig.url
+        # };
         push = {
           default = "current";
           autoSetupRemote = true;
@@ -209,7 +163,7 @@ in {
         diff = {
           colorMoved = "default";
         };
-      };#end of git block
+      };
     };
 
     # FIXME: This is my fish config - you can fiddle with it if you want
@@ -279,7 +233,7 @@ in {
         # To use code as the command, uncomment the line below. Be sure to replace [my-user] with your username. 
         # If your code binary is located elsewhere, adjust the path as needed.
         # code = "/mnt/c/Users/[my-user]/AppData/Local/Programs/'Microsoft VS Code'/bin/code";
-      }; #end of shellAilas block
+      };
       plugins = [
         {
           inherit (pkgs.fishPlugins.autopair) src;
@@ -293,7 +247,7 @@ in {
           inherit (pkgs.fishPlugins.sponge) src;
           name = "sponge";
         }
-      ]; #end of plugins list
+      ];
     };
-};
+  };
 }
