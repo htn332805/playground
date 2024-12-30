@@ -33,6 +33,8 @@ in {
   networking.hostId = "12345678";
   environment.systemPackages = with pkgs; [
     git curl wget vim neovim nb tmux screen htop nload tree fio sysstat
+    python3
+    python3Packages.pip
   ];
 
   i18n = {
@@ -64,8 +66,25 @@ in {
       # openssh.authorizedKeys.keys = [
       #   "ssh-rsa ..."
       # ];
-    };
+      packages = with pkgs; [
+				(python3.withPackages (ps: with ps; [
+    	  # Add your desired Python packages here, for example:
+					numpy pandas matplotlib scipy dash flask jupyterlab
+  			])) # end of python3 packages
+			]; #end of packages
+
+    }; #end of users.users.user
   };
+  #setup virtual environment for user
+  system.activationScripts.pythonSetup = ''
+  mkdir -p /home/${user}/.venv
+  ${pkgs.python3}/bin/python3 -m venv /home/${user}/.venv
+  chown -R ${user}:users /home/${user}/.venv
+'';
+  # add the virtual environment to PATH
+  environment.shellInit = ''
+  	export PATH="/home/${user}/.venv/bin:$PATH"
+	'';
 
   # Enable passwordless sudo.
   security.sudo.extraRules= [
