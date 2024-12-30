@@ -31,14 +31,56 @@
     vim
     wget
     zip
-  ];
+  ]; #end of unstable-packages list
 
   stable-packages = with pkgs; [
     # FIXME: customize these stable packages to your liking for the languages that you use
 
     # FIXME: you can add plugins, change keymaps etc using (jeezyvim.nixvimExtend {})
     # https://github.com/LGUG2Z/JeezyVim#extending
-    jeezyvim
+    #jeezyvim
+    (pkgs.jeezyvim.nixvimExtend {
+      # you can put anything under the "Options" section of the NixVim docs here
+      # https://nix-community.github.io/nixvim/
+
+      # some examples...
+
+      # all your regular vim options here
+      options = {
+        textwidth = 120;
+      };
+
+      config = {
+      # add your own personal keymaps preferences
+        keymaps = [
+          {
+            mode = "n";
+            action = ":vsplit<CR>";
+            key = "|";
+          }
+
+          {
+            mode = "n";
+            action = ":split<CR>";
+            key = "-";
+          }
+        ]; #end of keymaps list
+
+        plugins = {
+          lsp.servers = {
+            # full list of language servers you can enable on the left bar here:
+            # https://nix-community.github.io/nixvim/plugins/lsp/servers/ansiblels/index.html
+
+            graphql.enable = true;
+          };
+
+          # full list of plugins on the left bar here:
+          # https://nix-community.github.io/nixvim/plugins/airline/index.html
+
+          markdown-preview.enable = true;
+        }; #end of jeezyvim exntend plugins
+      }; # end of jeezyvim extend config
+    })#end of jeezyvim package with extend features
 
     # key tools
     gh # for bootstrapping
@@ -70,11 +112,11 @@
     shellcheck
     shfmt
     statix # nix
-  ];
+  ]; #end of stable packages list
 in {
   imports = [
     nix-index-database.hmModules.nix-index
-  ];
+  ]; # end of imports block
 
   home.stateVersion = "24.11";
 
@@ -85,7 +127,7 @@ in {
     sessionVariables.EDITOR = "nvim";
     # FIXME: set your preferred $SHELL
     sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/fish";
-  };
+  }; #end of home block
 
   home.packages =
     stable-packages
@@ -95,7 +137,7 @@ in {
     [
       # pkgs.some-package
       # pkgs.unstable.some-other-package
-    ];
+    ]; # end of custom packages list
 
   programs = {
     home-manager.enable = true;
@@ -247,7 +289,7 @@ in {
           inherit (pkgs.fishPlugins.sponge) src;
           name = "sponge";
         }
-      ];
-    };
-  };
-}
+      ]; #end of plugins list
+    }; # end of git shortcuts
+  }; #end of fish block
+} # end of programs block
