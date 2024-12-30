@@ -19,7 +19,6 @@
     git
     git-crypt
     htop
-    jq
     killall
     mosh
     procs
