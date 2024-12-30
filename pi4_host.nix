@@ -35,8 +35,6 @@ in {
     git curl wget vim neovim nb tmux screen htop nload tree fio sysstat
   ];
 
-  services.openssh.enable = true;
-
   i18n = {
     defaultLocale = defaultLocale;
     extraLocaleSettings = {
@@ -57,7 +55,15 @@ in {
     users."${user}" = {
       isNormalUser = true;
       password = password;
-      extraGroups = [ "wheel" ];
+      # FIXME: change your shell here if you don't want fish
+      shell = pkgs.fish;
+      extraGroups = [ "wheel" "networking" "docker" ];
+      # FIXME: add your own hashed password
+      # hashedPassword = "";
+      # FIXME: add your own ssh public key
+      # openssh.authorizedKeys.keys = [
+      #   "ssh-rsa ..."
+      # ];
     };
   };
 
@@ -122,7 +128,51 @@ in {
     ]; #end of kernel parameters
   };#END OF BOOT BLOCK
   users.users.root.initialPassword = password;
+  # FIXME: change your shell here if you don't want fish
+  programs.fish.enable = true;
+  environment.pathsToLink = ["/share/fish"];
+  environment.shells = [pkgs.fish];
+  environment.enableAllTerminfo = true;
+  security.sudo.wheelNeedsPassword = false;
+  # FIXME: uncomment the next line to enable SSH
+  services.openssh.enable = true;
 
+  home-manager.users.${username} = {
+    imports = [
+      ./home.nix
+    ];
+  };
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+    autoPrune.enable = true;
+  };
+  nix = {
+    settings = {
+      trusted-users = [username];
+      # FIXME: use your access tokens from secrets.json here to be able to clone private repos on GitHub and GitLab
+      # access-tokens = [
+      #   "github.com=${secrets.github_token}"
+      #   "gitlab.com=OAuth2:${secrets.gitlab_token}"
+      # ];
+
+      accept-flake-config = true;
+      auto-optimise-store = true;
+    };
+
+    registry = {
+      nixpkgs = {
+        flake = inputs.nixpkgs;
+      };
+    };
+
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs.outPath}"
+      "nixos-config=/etc/nixos/configuration.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
+
+    package = pkgs.nixVersions.stable;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   #nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.11";
