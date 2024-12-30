@@ -10,22 +10,27 @@
     };
 
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
+      url = "github:NixOS/nixos-hardware"; # this channel have the setting for the RPI hardwares
     };
-
-  };
+    disko.url = "github:nix-community/disko";
+  
+  
+  }; # end of inputs definition
 
   # Outputs can be anything, but the wiki + some commands define their own
   # specific keys. Wiki page: https://nixos.wiki/wiki/Flakes#Output_schema
-  outputs = { self, nixpkgs, nixos-hardware }: {
+  outputs = { self, nixpkgs, nixos-hardware, disko }: {
     # nixosConfigurations is the key that nixos-rebuild looks for.
     nixosConfigurations = {
+      #FIXME by change xxxmyhostxxx = nixpkgs.lib.nixosSystem 
       myhost = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         # Import our old system configuration.nix
         modules = [
           ./configuration.nix
           nixos-hardware.nixosModules.raspberry-pi-4
+          disko.nixosModules.disko
+          ./disko_partition.nix
         ];
       };
     };
