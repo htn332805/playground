@@ -119,7 +119,7 @@
 in {
   imports = [
     nix-index-database.hmModules.nix-index
-  ];
+  ]; #end of import list
 
   home.stateVersion = "24.11";
 
@@ -279,7 +279,7 @@ in {
         # To use code as the command, uncomment the line below. Be sure to replace [my-user] with your username. 
         # If your code binary is located elsewhere, adjust the path as needed.
         # code = "/mnt/c/Users/[my-user]/AppData/Local/Programs/'Microsoft VS Code'/bin/code";
-      };
+      }; #end of shellAilas block
       plugins = [
         {
           inherit (pkgs.fishPlugins.autopair) src;
@@ -296,4 +296,5 @@ in {
       ]; #end of plugins list
     };
   };
+};
 }
