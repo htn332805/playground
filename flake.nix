@@ -29,8 +29,8 @@
         modules = [
           ./pi4_host.nix
           nixos-hardware.nixosModules.raspberry-pi-4
-          disko.nixosModules.disko
-          ./disko_partition.nix
+          #disko.nixosModules.disko
+          #./disko_partition.nix
         ];
       };
     };
