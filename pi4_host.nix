@@ -25,6 +25,9 @@ in {
       options = [ "fmask=0022" "dmask=0022" ];
     };
   }; #end of filesystem
+  swapDevices = [
+  	{ device = "/var/lib/swapfile"; size = 16*1024; }
+  ]; #swapd devices list
 
   networking.hostName = hostname;
 
