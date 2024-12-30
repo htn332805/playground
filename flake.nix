@@ -1,4 +1,5 @@
 # This can be built with nixos-rebuild --flake .#myhost build
+#  git clone https://github.com/htn332805/playground.git && cd playground && nixos-rebuild -v --flake .#pi4test switch
 {
   description = "the simplest flake for nixos-rebuild";
 
