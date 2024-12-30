@@ -4,7 +4,6 @@ let
   hostname = "pi4test";
   user = "nixos";
   password = "hai";
-  #nixosHardwareVersion = "7f1836531b126cfcf584e7d7d71bf8758bb58969";
 
   timeZone = "America/Los_Angeles";
   defaultLocale = "en_US.UTF-8";
@@ -19,7 +18,7 @@ in {
       fsType = "ext4";
       options = [ "noatime" ];
     };
-    "/boot/efi" = {
+    "/boot" = {
       device = "/dev/disk/by-id/wwn-0x500a07512e906819-part1";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
@@ -32,15 +31,10 @@ in {
   networking.hostName = hostname;
   networking.hostId = "12345678";
   environment.systemPackages = with pkgs; [
-    curl
-    wget
-    vim
-    git
+    git curl wget vim neovim nb tmux screen htop nload tree fio sysstat
   ];
 
   services.openssh.enable = true;
-
-  #time.timeZone = "America/New_York";
 
   i18n = {
     defaultLocale = defaultLocale;
@@ -78,16 +72,21 @@ in {
   ];
 
   # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
+  #hardware.raspberry-pi."4".fkms-3d.enable = true;
   services.xserver = {
 	enable = true;
 	displayManager.lightdm.enable = true;
 	desktopManager.xfce.enable = true;
 	windowManager.qtile.enable = true;
-	#windowManager.qtile.backend = "x11";
 	windowManager.qtile.configFile = "/home/nixos/.config/qitle/config.py";
 	windowManager.dwm.enable = true;
-  }; #end of xserver  
+  }; #end of xserver
+  services.xserver.displayManager.lightdm.extraConfig = ''
+	greeter-show-manual-login=true
+  	allow-guest=false
+  '';
+  security.pam.services.lightdm.enableGnomeKeyring = true;
+  security.pam.services.lightdm-greeter.enableGnomeKeyring = true;
   security.polkit.enable = true;
   services.displayManager.defaultSession = "xfce";
   services.picom = {
@@ -121,7 +120,9 @@ in {
       "console=tty0"
     ]; #end of kernel parameters
   };#END OF BOOT BLOCK
+  users.users.root.initialPassword = password;
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
