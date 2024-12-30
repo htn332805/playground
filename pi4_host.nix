@@ -160,12 +160,6 @@ in {
       auto-optimise-store = true;
     }; #end of settings
 
-    registry = {
-      nixpkgs = {
-        flake = inputs.nixpkgs;
-      };
-    }; #end of registry
-
     nixPath = [
       #"nixpkgs=${inputs.nixpkgs.outPath}"
       "nixos-config=/etc/nixos/configuration.nix"
