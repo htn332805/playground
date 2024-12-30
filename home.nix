@@ -26,7 +26,6 @@
     tmux
     vim
     wget
-    zip
   ]; #end of unstable-packages list
 
   stable-packages = with pkgs; [
