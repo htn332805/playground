@@ -23,7 +23,7 @@
     # nixosConfigurations is the key that nixos-rebuild looks for.
     nixosConfigurations = {
       #FIXME by change xxxmyhostxxx = nixpkgs.lib.nixosSystem 
-      myhost = nixpkgs.lib.nixosSystem {
+      pi4test = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         # Import our old system configuration.nix
         modules = [
