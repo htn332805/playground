@@ -6,7 +6,7 @@ let
   password = "hai";
   #nixosHardwareVersion = "7f1836531b126cfcf584e7d7d71bf8758bb58969";
 
-  timeZone = "America/New_York";
+  timeZone = "America/Los_Angeles";
   defaultLocale = "en_US.UTF-8";
 in {
   imports = [
@@ -15,11 +15,16 @@ in {
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-id/wwn-0x500a07512e906819";
+      device = "/dev/disk/by-id/wwn-0x500a07512e906819-part3";
       fsType = "ext4";
       options = [ "noatime" ];
     };
-  };
+    "/boot/efi" = {
+      device = "/dev/disk/by-id/wwn-0x500a07512e906819-part1";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+  }; #end of filesystem
 
   networking.hostName = hostname;
 
@@ -32,7 +37,7 @@ in {
 
   services.openssh.enable = true;
 
-  time.timeZone = "America/New_York";
+  #time.timeZone = "America/New_York";
 
   i18n = {
     defaultLocale = defaultLocale;
