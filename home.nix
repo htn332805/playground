@@ -38,7 +38,52 @@
 
     # FIXME: you can add plugins, change keymaps etc using (jeezyvim.nixvimExtend {})
     # https://github.com/LGUG2Z/JeezyVim#extending
-    jeezyvim
+    #jeezyvim
+    (jeezyvim.nixvimExtend {
+      # you can put anything under the "Options" section of the NixVim docs here
+      # https://nix-community.github.io/nixvim/
+
+      # some examples...
+
+      # all your regular vim options here
+      options = {
+        textwidth = 120;
+      };
+
+      config = {
+      # add your own personal keymaps preferences
+        keymaps = [
+          {
+            mode = "n";
+            action = ":vsplit<CR>";
+            key = "|";
+          }
+
+          {
+            mode = "n";
+            action = ":split<CR>";
+            key = "-";
+          }
+        ];
+
+
+        plugins = {
+          lsp.servers = {
+            # full list of language servers you can enable on the left bar here:
+            # https://nix-community.github.io/nixvim/plugins/lsp/servers/ansiblels/index.html
+
+            graphql.enable = true;
+          };
+
+          # full list of plugins on the left bar here:
+          # https://nix-community.github.io/nixvim/plugins/airline/index.html
+
+          markdown-preview.enable = true;
+        };
+      };
+    }) #end of jeezyvim
+
+
 
     # key tools
     gh # for bootstrapping
