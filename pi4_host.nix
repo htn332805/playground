@@ -137,7 +137,7 @@ in {
   # FIXME: uncomment the next line to enable SSH
   services.openssh.enable = true;
 
-  home-manager.users.${username} = {
+  home-manager.users.${user} = {
     imports = [
       ./home.nix
     ];
