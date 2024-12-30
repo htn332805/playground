@@ -30,7 +30,7 @@ in {
   ]; #swapd devices list
 
   networking.hostName = hostname;
-
+  networking.hostId = "12345678";
   environment.systemPackages = with pkgs; [
     curl
     wget
@@ -84,7 +84,7 @@ LC_MONETARY = defaultLocale;
 	displayManager.lightdm.enable = true;
 	desktopManager.xfce.enable = true;
 	windowManager.qtile.enable = true;
-	windowManager.qtile.backend = "x11";
+	#windowManager.qtile.backend = "x11";
 	windowManager.qtile.configFile = "/home/nixos/.config/qitle/config.py";
 	windowManager.dwm.enable = true;
   }; #end of xserver  
@@ -103,7 +103,7 @@ LC_MONETARY = defaultLocale;
 	dates = "23:15";
 	options = "--delete-older-than 30d";
   }; #end of nix.gc
-  hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.enable = true;
   boot = {
     kernelPackages =  pkgs.linuxPackages;
     initrd.verbose = true;
