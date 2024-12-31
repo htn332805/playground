@@ -27,10 +27,6 @@
 
       secrets = builtins.fromJSON (builtins.readFile "${self}/secrets.json");
 
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-      forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
-      forEachPkgs = f: forEachSystem (sys: (f nixpkgs.legacyPackages.${sys}));
-
       nixpkgsWithOverlays = system: (import nixpkgs rec {
         inherit system;
 
@@ -90,9 +86,6 @@
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     # nixosConfigurations is the key that nixos-rebuild looks for.
-    lib = import ./lib inputs;
-    devShells = self.lib.mkInstallerShells self.nixosConfigurations;
-    formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
 
     nixosConfigurations = {
       #FIXME by change xxxmyhostxxx = nixpkgs.lib.nixosSystem 
@@ -100,7 +93,7 @@
         system = "aarch64-linux";
         hostname = "pi4test";
         username = "nixos"; # FIXME: replace with your own username!
-        specialArgs = { inherit inputs; };
+      
         # Import our old system configuration.nix
         modules = [
           ./pi4_host.nix
