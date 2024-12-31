@@ -100,6 +100,7 @@
         system = "aarch64-linux";
         hostname = "pi4test";
         username = "nixos"; # FIXME: replace with your own username!
+        specialArgs = { inherit inputs; };
         # Import our old system configuration.nix
         modules = [
           ./pi4_host.nix
@@ -107,6 +108,7 @@
           #disko.nixosModules.disko
           #./disko_partition.nix
         ]; #end of pi4test modules
+
       }; #end of pi4test target
     }; # end of nixosconfiguration
   }; #closing of ouputs
