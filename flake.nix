@@ -16,6 +16,8 @@
     jeezyvim.url = "github:LGUG2Z/JeezyVim";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+    impermanence.url = "github:nix-community/impermanence";
   }; # end of inputs definition
 
   # Outputs can be anything, but the wiki + some commands define their own
@@ -24,6 +26,11 @@
     with inputs; let
 
       secrets = builtins.fromJSON (builtins.readFile "${self}/secrets.json");
+
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
+      forEachPkgs = f: forEachSystem (sys: (f nixpkgs.legacyPackages.${sys}));
+
       nixpkgsWithOverlays = system: (import nixpkgs rec {
         inherit system;
 
@@ -83,6 +90,10 @@
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
     # nixosConfigurations is the key that nixos-rebuild looks for.
+    lib = import ./lib inputs;
+    devShells = self.lib.mkInstallerShells self.nixosConfigurations;
+    formatter = forEachPkgs (pkgs: pkgs.nixpkgs-fmt);
+
     nixosConfigurations = {
       #FIXME by change xxxmyhostxxx = nixpkgs.lib.nixosSystem 
       pi4test =  mkNixosConfiguration {
