@@ -76,11 +76,11 @@ in {
     }; #end of users.users.user
   };
   #setup virtual environment for user
-  system.activationScripts.pythonSetup = ''
-  mkdir -p /home/${user}/.venv
-  ${pkgs.python3}/bin/python3 -m venv /home/${user}/.venv
-  chown -R ${user}:users /home/${user}/.venv
-'';
+  #system.activationScripts.pythonSetup = ''
+  #mkdir -p /home/${user}/.venv
+  #${pkgs.python3}/bin/python3 -m venv /home/${user}/.venv
+  #chown -R ${user}:users /home/${user}/.venv
+  #'';
   # add the virtual environment to PATH
   environment.shellInit = ''
   	export PATH="/home/${user}/.venv/bin:$PATH"
