@@ -69,7 +69,7 @@ in {
       packages = with pkgs; [
 				(python3.withPackages (ps: with ps; [
     	  			# Add your desired Python packages here, for example:
-					numpy pandas matplotlib scipy dash flask jupyterlab reader
+					numpy pandas matplotlib scipy dash flask jupyterlab pip reader
   			])) # end of python3 packages
 			]; #end of packages
 
