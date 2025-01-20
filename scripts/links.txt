@@ -1,0 +1,17 @@
+c181d-3d6c3
+d67a8-a00fb
+208c9-570dd
+b4fd7-9d640
+39385-8df19
+2fcda-3bc28
+0950f-67566
+8474b-6e5dc
+9fff8-8e4ca
+b22a2-ac739
+27594-8192c
+12ba8-7aede
+a5127-7171f
+7cf52-ed7d4
+58187-97e86
+37704-991b7
+https://github.com/nix-community/impermanence
